@@ -1,204 +1,145 @@
-{
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "provenance": [],
-      "authorship_tag": "ABX9TyNqFnoyaKwj9isHXMoMeN9I",
-      "include_colab_link": true
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    }
-  },
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "view-in-github",
-        "colab_type": "text"
-      },
-      "source": [
-        "<a href=\"https://colab.research.google.com/github/Kaurin1/Groceries-Data/blob/main/Data_Mining%20MBA\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": 7,
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "DLLb86PQwyV5",
-        "outputId": "45620dfc-252f-4f0a-f0f4-d22a31078342"
-      },
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stderr",
-          "text": [
-            "/usr/local/lib/python3.11/dist-packages/ipykernel/ipkernel.py:283: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.\n",
-            "  and should_run_async(code)\n"
-          ]
-        },
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "\n",
-            "Results for minimum support = 0.01:\n",
-            "Apriori execution time: 3.4876 seconds\n",
-            "FP-Growth execution time: 36.3002 seconds\n",
-            "Number of frequent itemsets found: 3016\n",
-            "Number of association rules generated: 1117\n",
-            "\n",
-            "Top 5 association rules by lift:\n",
-            "                                           antecedents   consequents  \\\n",
-            "48               (rolls/buns, sausage, tropical fruit)      (yogurt)   \n",
-            "235                        (curd, whole milk, sausage)      (yogurt)   \n",
-            "28   (rolls/buns, whole milk, other vegetables, sau...      (yogurt)   \n",
-            "945                              (domestic eggs, meat)  (whole milk)   \n",
-            "794                              (coffee, canned beer)        (soda)   \n",
-            "\n",
-            "      support  confidence      lift  \n",
-            "48   0.011031    0.530864  1.876073  \n",
-            "235  0.010005    0.527027  1.862513  \n",
-            "28   0.013597    0.519608  1.836293  \n",
-            "945  0.010262    0.784314  1.711789  \n",
-            "794  0.011288    0.536585  1.711628  \n",
-            "\n",
-            "Results for minimum support = 0.02:\n",
-            "Apriori execution time: 0.2232 seconds\n",
-            "FP-Growth execution time: 11.4797 seconds\n",
-            "Number of frequent itemsets found: 894\n",
-            "Number of association rules generated: 246\n",
-            "\n",
-            "Top 5 association rules by lift:\n",
-            "                                   antecedents         consequents   support  \\\n",
-            "15                 (sausage, whole milk, soda)        (rolls/buns)  0.021036   \n",
-            "158  (bottled water, yogurt, other vegetables)        (whole milk)  0.022063   \n",
-            "25     (sausage, whole milk, other vegetables)        (rolls/buns)  0.026167   \n",
-            "193              (root vegetables, newspapers)        (rolls/buns)  0.020010   \n",
-            "162          (bottled water, whole milk, soda)  (other vegetables)  0.022063   \n",
-            "\n",
-            "     confidence      lift  \n",
-            "15     0.525641  1.503264  \n",
-            "158    0.682540  1.489664  \n",
-            "25     0.520408  1.488299  \n",
-            "193    0.516556  1.477283  \n",
-            "162    0.551282  1.463827  \n",
-            "\n",
-            "Results for minimum support = 0.03:\n",
-            "Apriori execution time: 0.0851 seconds\n",
-            "FP-Growth execution time: 5.5738 seconds\n",
-            "Number of frequent itemsets found: 415\n",
-            "Number of association rules generated: 94\n",
-            "\n",
-            "Top 5 association rules by lift:\n",
-            "                               antecedents         consequents   support  \\\n",
-            "8   (rolls/buns, yogurt, other vegetables)        (whole milk)  0.034377   \n",
-            "7         (rolls/buns, whole milk, yogurt)  (other vegetables)  0.034377   \n",
-            "13                   (rolls/buns, sausage)  (other vegetables)  0.041816   \n",
-            "62             (bottled water, whole milk)  (other vegetables)  0.056183   \n",
-            "64                 (bottled water, yogurt)        (whole milk)  0.040277   \n",
-            "\n",
-            "    confidence      lift  \n",
-            "8     0.656863  1.433623  \n",
-            "7     0.521401  1.384482  \n",
-            "13    0.507788  1.348337  \n",
-            "62    0.500000  1.327657  \n",
-            "64    0.606178  1.323001  \n",
-            "\n",
-            "Performance Comparison Summary:\n",
-            "   min_support  apriori_time  fpgrowth_time  itemsets_found\n",
-            "0         0.01      3.487635      36.300189            3016\n",
-            "1         0.02      0.223226      11.479664             894\n",
-            "2         0.03      0.085109       5.573827             415\n",
-            "\n",
-            "Sample of frequent itemsets (top 10) for lowest support value:\n",
-            "    support               itemsets\n",
-            "0  0.458184           (whole milk)\n",
-            "1  0.313494                 (soda)\n",
-            "2  0.282966               (yogurt)\n",
-            "3  0.206003              (sausage)\n",
-            "4  0.177527               (pastry)\n",
-            "5  0.165213          (canned beer)\n",
-            "6  0.069266          (salty snack)\n",
-            "7  0.059005      (misc. beverages)\n",
-            "8  0.052335     (hygiene articles)\n",
-            "9  0.036172  (semi-finished bread)\n"
-          ]
-        }
-      ],
-      "source": [
-        "import pandas as pd\n",
-        "import numpy as np\n",
-        "from mlxtend.frequent_patterns import apriori, fpgrowth, association_rules\n",
-        "from mlxtend.preprocessing import TransactionEncoder\n",
-        "import time\n",
-        "\n",
-        "df = pd.read_csv('https://raw.githubusercontent.com/Kaurin1/Groceries_data/refs/heads/main/Groceries_data.csv')\n",
-        "\n",
-        "transactions = df.groupby('Member_number')['itemDescription'].agg(list).values.tolist()\n",
-        "\n",
-        "te = TransactionEncoder()\n",
-        "te_ary = te.fit(transactions).transform(transactions)\n",
-        "df_encoded = pd.DataFrame(te_ary, columns=te.columns_)\n",
-        "\n",
-        "def compare_algorithms(df, min_support=0.01):\n",
-        "    start_time = time.time()\n",
-        "    frequent_itemsets_apriori = apriori(df, min_support=min_support, use_colnames=True)\n",
-        "    apriori_time = time.time() - start_time\n",
-        "\n",
-        "    start_time = time.time()\n",
-        "    frequent_itemsets_fpgrowth = fpgrowth(df, min_support=min_support, use_colnames=True)\n",
-        "    fpgrowth_time = time.time() - start_time\n",
-        "\n",
-        "    return frequent_itemsets_apriori, frequent_itemsets_fpgrowth, apriori_time, fpgrowth_time\n",
-        "\n",
-        "support_values = [0.01, 0.02, 0.03]\n",
-        "results = []\n",
-        "\n",
-        "for min_support in support_values:\n",
-        "    fi_apriori, fi_fpgrowth, time_apriori, time_fpgrowth = compare_algorithms(df_encoded, min_support)\n",
-        "\n",
-        "    results.append({\n",
-        "        'min_support': min_support,\n",
-        "        'apriori_time': time_apriori,\n",
-        "        'fpgrowth_time': time_fpgrowth,\n",
-        "        'itemsets_found': len(fi_apriori)\n",
-        "    })\n",
-        "\n",
-        "    try:\n",
-        "        rules = association_rules(fi_fpgrowth, len(fi_fpgrowth), metric=\"confidence\", min_threshold=0.5)\n",
-        "\n",
-        "        print(f\"\\nResults for minimum support = {min_support}:\")\n",
-        "        print(f\"Apriori execution time: {time_apriori:.4f} seconds\")\n",
-        "        print(f\"FP-Growth execution time: {time_fpgrowth:.4f} seconds\")\n",
-        "        print(f\"Number of frequent itemsets found: {len(fi_apriori)}\")\n",
-        "        print(f\"Number of association rules generated: {len(rules)}\")\n",
-        "\n",
-        "        if len(rules) > 0:\n",
-        "            print(\"\\nTop 5 association rules by lift:\")\n",
-        "            print(rules.nlargest(5, 'lift')[['antecedents', 'consequents', 'support', 'confidence', 'lift']])\n",
-        "        else:\n",
-        "            print(\"\\nNo rules generated with current thresholds\")\n",
-        "\n",
-        "    except Exception as e:\n",
-        "        print(f\"\\nError generating rules for support = {min_support}: {str(e)}\")\n",
-        "        continue\n",
-        "\n",
-        "performance_df = pd.DataFrame(results)\n",
-        "print(\"\\nPerformance Comparison Summary:\")\n",
-        "print(performance_df)\n",
-        "\n",
-        "print(\"\\nSample of frequent itemsets (top 10) for lowest support value:\")\n",
-        "print(fi_fpgrowth.head(10))"
-      ]
-    }
-  ]
-}
+import pandas as pd
+import numpy as np
+from mlxtend.frequent_patterns import apriori, fpgrowth, association_rules
+from mlxtend.preprocessing import TransactionEncoder
+import time
+
+df = pd.read_csv('https://raw.githubusercontent.com/Kaurin1/Groceries_data/refs/heads/main/Groceries_data.csv')
+
+transactions = df.groupby('Member_number')['itemDescription'].agg(list).values.tolist()
+
+te = TransactionEncoder()
+te_ary = te.fit(transactions).transform(transactions)
+df_encoded = pd.DataFrame(te_ary, columns=te.columns_)
+
+def compare_algorithms(df, min_support=0.01):
+    start_time = time.time()
+    frequent_itemsets_apriori = apriori(df, min_support=min_support, use_colnames=True)
+    apriori_time = time.time() - start_time
+    
+    start_time = time.time()
+    frequent_itemsets_fpgrowth = fpgrowth(df, min_support=min_support, use_colnames=True)
+    fpgrowth_time = time.time() - start_time
+    
+    return frequent_itemsets_apriori, frequent_itemsets_fpgrowth, apriori_time, fpgrowth_time
+
+support_values = [0.01, 0.02, 0.03]
+results = []
+
+for min_support in support_values:
+    fi_apriori, fi_fpgrowth, time_apriori, time_fpgrowth = compare_algorithms(df_encoded, min_support)
+    
+    results.append({
+        'min_support': min_support,
+        'apriori_time': time_apriori,
+        'fpgrowth_time': time_fpgrowth,
+        'itemsets_found': len(fi_apriori)
+    })
+    
+    try:
+        rules = association_rules(fi_fpgrowth, len(fi_fpgrowth), metric="confidence", min_threshold=0.5)
+        
+        print(f"\nResults for minimum support = {min_support}:")
+        print(f"Apriori execution time: {time_apriori:.4f} seconds")
+        print(f"FP-Growth execution time: {time_fpgrowth:.4f} seconds")
+        print(f"Number of frequent itemsets found: {len(fi_apriori)}")
+        print(f"Number of association rules generated: {len(rules)}")
+        
+        if len(rules) > 0:
+            print("\nTop 5 association rules by lift:")
+            print(rules.nlargest(5, 'lift')[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
+        else:
+            print("\nNo rules generated with current thresholds")
+            
+    except Exception as e:
+        print(f"\nError generating rules for support = {min_support}: {str(e)}")
+        continue
+
+performance_df = pd.DataFrame(results)
+print("\nPerformance Comparison Summary:")
+print(performance_df)
+
+print("\nSample of frequent itemsets (top 10) for lowest support value:")
+print(fi_fpgrowth.head(10))
+
+Results for minimum support = 0.01:
+Apriori execution time: 3.4876 seconds
+FP-Growth execution time: 36.3002 seconds
+Number of frequent itemsets found: 3016
+Number of association rules generated: 1117
+
+Top 5 association rules by lift:
+                                           antecedents   consequents  \
+48               (rolls/buns, sausage, tropical fruit)      (yogurt)   
+235                        (curd, whole milk, sausage)      (yogurt)   
+28   (rolls/buns, whole milk, other vegetables, sau...      (yogurt)   
+945                              (domestic eggs, meat)  (whole milk)   
+794                              (coffee, canned beer)        (soda)   
+
+      support  confidence      lift  
+48   0.011031    0.530864  1.876073  
+235  0.010005    0.527027  1.862513  
+28   0.013597    0.519608  1.836293  
+945  0.010262    0.784314  1.711789  
+794  0.011288    0.536585  1.711628  
+
+Results for minimum support = 0.02:
+Apriori execution time: 0.2232 seconds
+FP-Growth execution time: 11.4797 seconds
+Number of frequent itemsets found: 894
+Number of association rules generated: 246
+
+Top 5 association rules by lift:
+                                   antecedents         consequents   support  \
+15                 (sausage, whole milk, soda)        (rolls/buns)  0.021036   
+158  (bottled water, yogurt, other vegetables)        (whole milk)  0.022063   
+25     (sausage, whole milk, other vegetables)        (rolls/buns)  0.026167   
+193              (root vegetables, newspapers)        (rolls/buns)  0.020010   
+162          (bottled water, whole milk, soda)  (other vegetables)  0.022063   
+
+     confidence      lift  
+15     0.525641  1.503264  
+158    0.682540  1.489664  
+25     0.520408  1.488299  
+193    0.516556  1.477283  
+162    0.551282  1.463827  
+
+Results for minimum support = 0.03:
+Apriori execution time: 0.0851 seconds
+FP-Growth execution time: 5.5738 seconds
+Number of frequent itemsets found: 415
+Number of association rules generated: 94
+
+Top 5 association rules by lift:
+                               antecedents         consequents   support  \
+8   (rolls/buns, yogurt, other vegetables)        (whole milk)  0.034377   
+7         (rolls/buns, whole milk, yogurt)  (other vegetables)  0.034377   
+13                   (rolls/buns, sausage)  (other vegetables)  0.041816   
+62             (bottled water, whole milk)  (other vegetables)  0.056183   
+64                 (bottled water, yogurt)        (whole milk)  0.040277   
+
+    confidence      lift  
+8     0.656863  1.433623  
+7     0.521401  1.384482  
+13    0.507788  1.348337  
+62    0.500000  1.327657  
+64    0.606178  1.323001  
+
+Performance Comparison Summary:
+   min_support  apriori_time  fpgrowth_time  itemsets_found
+0         0.01      3.487635      36.300189            3016
+1         0.02      0.223226      11.479664             894
+2         0.03      0.085109       5.573827             415
+
+Sample of frequent itemsets (top 10) for lowest support value:
+    support               itemsets
+0  0.458184           (whole milk)
+1  0.313494                 (soda)
+2  0.282966               (yogurt)
+3  0.206003              (sausage)
+4  0.177527               (pastry)
+5  0.165213          (canned beer)
+6  0.069266          (salty snack)
+7  0.059005      (misc. beverages)
+8  0.052335     (hygiene articles)
+9  0.036172  (semi-finished bread)
